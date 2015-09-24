@@ -11,12 +11,17 @@
 @interface ViewController ()
 
 @property (nonatomic, strong)NSArray *wordList;
+@property (nonatomic, strong)NSString *guessWord;
+@property (nonatomic, strong)NSMutableArray *excludedButtons;
+@property (nonatomic,weak) IBOutlet UIView *firstView;
+@property (nonatomic, strong)NSMutableArray *letterList;
+
 
 @end
 
 @implementation ViewController
 
-NSString *temp=@"";
+int lifeCount=0;
 
 - (NSString *)readBundleFileToString:(NSString *)filename ofType: (NSString *)type {
     NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:type];
@@ -32,8 +37,64 @@ NSString *temp=@"";
 }
 
 - (IBAction)startNewGamePressed:(id)sender {
-    NSLog(@"%@",[self randomWord:(_wordList)]);
+    _guessWord=[self randomWord:(_wordList)];
+     _letterList= [[NSMutableArray alloc] init];
+        for (int i=0;i<_guessWord.length;i++) {
+//        NSString *letter = [_guessWord characterAtIndex:i];
+        NSString *letter = [_guessWord substringWithRange:NSMakeRange(i, 1)];
+        [_letterList addObject:letter];
+    }
+    [_excludedButtons removeAllObjects];
+    //clear death counter
+    
+    for (id object in [_firstView subviews]) {
+        [object removeFromSuperview];
+    }
 
+    for (int i=0;i<_guessWord.length;i++) {
+        UIView *hashMark = [[UIView alloc] initWithFrame:CGRectMake(10.0+(20*i), 23.0, 10, 2)];
+        [hashMark setBackgroundColor:[UIColor grayColor]];
+        [_firstView addSubview:hashMark];
+        UILabel *letterLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0+(20*i), 0.0, 10, 21)];
+        letterLabel.textColor = [UIColor blackColor];
+        letterLabel.font = [UIFont fontWithName:@"Futura" size:16.0];
+        letterLabel.tag = i;
+        letterLabel.text = _letterList[i];
+        [_firstView addSubview:letterLabel];
+
+        
+    }
+
+}
+
+- (IBAction)aButtonPressed:(id)sender {
+    if (![_excludedButtons containsObject:(@"a")]) {
+        NSLog(@"A button pressed");
+    checkLetter:@"a";
+    }
+    
+}
+
+-(void)checkLetter:(NSString *) letter {
+    [_excludedButtons addObject:(letter)];
+    NSLog(@"the letter is: %@ and the word is: %@",letter,_guessWord);
+    if ([_guessWord containsString:(letter)]) {
+        NSLog(@"i found an A");
+        //display letter
+        for (int i=0; i<sizeof _letterList;i++) {
+            if( [_letterList[i] caseInsensitiveCompare:letter] == NSOrderedSame ) {
+                
+                for (UILabel *currentLabel in [_firstView subviews]) {
+                    if (currentLabel.tag == i) {
+                        currentLabel.textColor = [UIColor redColor];
+                    }
+                }
+            }
+        }
+        
+    } else {
+        //add to death counter
+    }
 }
 
 - (NSString *) randomWord:(NSArray *)wordList {

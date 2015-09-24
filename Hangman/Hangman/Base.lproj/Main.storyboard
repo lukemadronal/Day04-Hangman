@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,35 +18,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzJ-Rc-RbG">
-                                <rect key="frame" x="133" y="83" width="106" height="30"/>
+                                <rect key="frame" x="258" y="247" width="106" height="30"/>
                                 <state key="normal" title="This is a button"/>
                                 <connections>
                                     <action selector="startNewGamePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aaH-l5-Mhf"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFX-Iu-ocR">
+                                <rect key="frame" x="133" y="350" width="30" height="30"/>
+                                <state key="normal" title="A"/>
+                                <connections>
+                                    <action selector="aButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DGU-cb-sPr"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Byc-Lg-xm7">
+                                <rect key="frame" x="20" y="72" width="560" height="52"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="Isy-FE-3ru"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="Byc-Lg-xm7" secondAttribute="leading" id="MOd-cu-Gqd"/>
+                            <constraint firstItem="Byc-Lg-xm7" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="52" id="V9D-r3-viM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Byc-Lg-xm7" secondAttribute="trailing" id="cdL-Mt-CZd"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="firstView" destination="Byc-Lg-xm7" id="49j-mi-hvX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="DUf-VG-4nz">
-            <objects>
-                <viewController id="iV0-lQ-Hl2" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Myw-5P-IXi"/>
-                        <viewControllerLayoutGuide type="bottom" id="gby-eu-BMI"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="7ll-9f-enS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wgl-lu-7hk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
+            <point key="canvasLocation" x="243" y="233"/>
         </scene>
     </scenes>
 </document>
