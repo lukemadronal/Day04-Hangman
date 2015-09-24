@@ -13,6 +13,7 @@
 		01FE722D1BB4558200500363 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01FE722B1BB4558200500363 /* Main.storyboard */; };
 		01FE722F1BB4558200500363 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01FE722E1BB4558200500363 /* Assets.xcassets */; };
 		01FE72321BB4558200500363 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01FE72301BB4558200500363 /* LaunchScreen.storyboard */; };
+		01FE723C1BB457C500500363 /* WordSetApple.csv in Resources */ = {isa = PBXBuildFile; fileRef = 01FE723B1BB457C500500363 /* WordSetApple.csv */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		01FE722E1BB4558200500363 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01FE72311BB4558200500363 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01FE72331BB4558200500363 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01FE723B1BB457C500500363 /* WordSetApple.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = WordSetApple.csv; path = Hangman/WordSetApple.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +44,7 @@
 		01FE72161BB4558200500363 = {
 			isa = PBXGroup;
 			children = (
+				01FE723B1BB457C500500363 /* WordSetApple.csv */,
 				01FE72211BB4558200500363 /* Hangman */,
 				01FE72201BB4558200500363 /* Products */,
 			);
@@ -136,6 +139,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01FE723C1BB457C500500363 /* WordSetApple.csv in Resources */,
 				01FE72321BB4558200500363 /* LaunchScreen.storyboard in Resources */,
 				01FE722F1BB4558200500363 /* Assets.xcassets in Resources */,
 				01FE722D1BB4558200500363 /* Main.storyboard in Resources */,
