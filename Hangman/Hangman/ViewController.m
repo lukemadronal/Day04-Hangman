@@ -40,6 +40,40 @@ int lifeCount=0;
     return [cleanString componentsSeparatedByCharactersInSet:set];
 }
 
+- (void)test{
+lifeCount=0;
+             _newgamedisplay.titleLabel.text = @"GUESS LETTERS!";
+             _guessWord=[self randomWord:(_wordList)];
+             _letterList= [[NSMutableArray alloc] init];
+             for (int i=0;i<_guessWord.length;i++) {
+                 //        NSString *letter = [_guessWord characterAtIndex:i];
+                 NSString *letter = [_guessWord substringWithRange:NSMakeRange(i, 1)];
+                 [_letterList addObject:letter];
+             }
+             [_excludedButtons removeAllObjects];
+             //clear death counter
+             
+             for (id object in [_firstView subviews]) {
+                 [object removeFromSuperview];
+             }
+             
+             for (int i=0;i<_guessWord.length;i++) {
+                 UIView *hashMark = [[UIView alloc] initWithFrame:CGRectMake(10.0+(20*i), 23.0, 10, 2)];
+                 [hashMark setBackgroundColor:[UIColor grayColor]];
+                 [_firstView addSubview:hashMark];
+                 UILabel *letterLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0+(20*i), 0.0, 10, 21)];
+                 letterLabel.textColor = [UIColor whiteColor];
+                 letterLabel.font = [UIFont fontWithName:@"Futura" size:16.0];
+                 letterLabel.tag = i;
+                 letterLabel.text = _letterList[i];
+                 [_firstView addSubview:letterLabel];
+                 
+                 
+             }
+             
+             }
+
+
 - (IBAction)startNewGamePressed:(id)sender {
     lifeCount=0;
     _newgamedisplay.titleLabel.text = @"GUESS LETTERS!";
@@ -83,8 +117,7 @@ int lifeCount=0;
     }
     
 }
-
-        
+    
 
 -(void)checkLetter:(NSString *) letter {
     [_excludedButtons addObject:letter];
@@ -110,8 +143,13 @@ int lifeCount=0;
         lifeCount++;
         NSString *temp=[NSString stringWithFormat:@"Hangman%i.png", lifeCount];
         [_nooseview setImage:[UIImage imageNamed:temp]];
-        if (lifeCount == 10) {
-        _newgamedisplay.titleLabel.text = @"YOU DIED. PRESS TO PLAY AGAIN";
+        if (lifeCount == 10) {UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Oh No!" message:@"You LOSE" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Start New Game" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                [self test];
+                                                }];
+                [alert addAction:defaultAction];
+                [self presentViewController:alert animated:YES completion:nil];
+        
         }
     }
 }
