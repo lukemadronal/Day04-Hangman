@@ -17,6 +17,8 @@
 @property (nonatomic, strong)NSMutableArray *letterList;
 @property (nonatomic, weak) IBOutlet UIImageView *nooseview;
 @property (nonatomic, strong) IBOutlet UIButton *newgamedisplay;
+@property (nonatomic,weak) IBOutlet UIView *buttonView;
+
 
 
 @end
@@ -27,6 +29,7 @@
 
 int lifeCount=0;
 bool freshgame;
+int winCount=0;
 
 - (NSString *)readBundleFileToString:(NSString *)filename ofType: (NSString *)type {
     NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:type];
@@ -42,8 +45,10 @@ bool freshgame;
 }
 
 - (void)test{
+    //    for (UIButton *button in [_buttonView subviews]) {
+    //        button.userInteractionEnabled=true;
+    //    }
     lifeCount=0;
-    _newgamedisplay.titleLabel.text = @"GUESS LETTERS!";
     _guessWord=[self randomWord:(_wordList)];
     _letterList= [[NSMutableArray alloc] init];
     for (int i=0;i<_guessWord.length;i++) {
@@ -76,10 +81,12 @@ bool freshgame;
 
 
 - (IBAction)startNewGamePressed:(id)sender {
+    
     freshgame=true;
     lifeCount=0;
     _guessWord=[self randomWord:(_wordList)];
     _letterList= [[NSMutableArray alloc] init];
+    
     for (int i=0;i<_guessWord.length;i++) {
         //        NSString *letter = [_guessWord characterAtIndex:i];
         NSString *letter = [_guessWord substringWithRange:NSMakeRange(i, 1)];
@@ -109,6 +116,7 @@ bool freshgame;
 }
 
 - (IBAction)keyboardPressed:(UIButton *)button {
+    
     if(freshgame){
         [button setEnabled:NO];
         NSString *buttonLetter = [button currentTitle];
@@ -128,22 +136,35 @@ bool freshgame;
         NSLog(@"the letter is: %@ and the word is: %@",letter,_guessWord);
         if ([[_guessWord uppercaseString] containsString:letter]) {
             NSLog(@"i found an A");
-            //display letter
             for (int i=0; i < _letterList.count; i++) {
                 if( [[_letterList[i] uppercaseString] isEqualToString:letter] ) {
+                    winCount++;
                     NSLog(@"the letter is: %@ and the word is: %@",letter,_guessWord);
                     for (id object in [_firstView subviews]) {
                         if ([object isKindOfClass: [UILabel class]]) {
                             UILabel *currentLabel = (UILabel *)object;
                             if (currentLabel.tag == i) {
                                 currentLabel.textColor = [UIColor blackColor];
+                                
                             }
+                            
+                            if (winCount==_guessWord.length) {UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"YES" message:@"You WIN" preferredStyle:UIAlertControllerStyleAlert];
+                                UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Start New Game" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                    [self test];
+                                }];
+                                [alert addAction:defaultAction];
+                                [self presentViewController:alert animated:YES completion:nil];
+                                
+                            }
+                            
+                            
                         }
                     }
                 }
             }
             
         } else {
+            NSLog(@"ITS NOT WORKINGGGGG");
             lifeCount++;
             NSString *temp=[NSString stringWithFormat:@"Hangman%i.png", lifeCount];
             [_nooseview setImage:[UIImage imageNamed:temp]];
@@ -157,8 +178,9 @@ bool freshgame;
             }
         }
     }
-    
 }
+
+
 
 - (NSString *) randomWord:(NSArray *)wordList {
     return _wordList [arc4random_uniform((uint32_t)[_wordList count]-1)];
