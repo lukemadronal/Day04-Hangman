@@ -16,6 +16,7 @@
 @property (nonatomic,weak) IBOutlet UIView *firstView;
 @property (nonatomic, strong)NSMutableArray *letterList;
 @property (nonatomic, weak) IBOutlet UIImageView *nooseview;
+@property (nonatomic, weak) IBOutlet UIButton *newgamedisplay;
 
 
 @end
@@ -40,6 +41,7 @@ int lifeCount=0;
 }
 
 - (IBAction)startNewGamePressed:(id)sender {
+    lifeCount=0;
     _guessWord=[self randomWord:(_wordList)];
      _letterList= [[NSMutableArray alloc] init];
         for (int i=0;i<_guessWord.length;i++) {
@@ -70,7 +72,9 @@ int lifeCount=0;
 
 }
 
-- (IBAction)aButtonPressed:(id)sender {
+- (IBAction)keyboardPressed:(UIButton *)button {
+    NSString *buttonLetter = [button currentTitle];
+    NSLog(@"%@ Letter Pressed", buttonLetter );
     if (![_excludedButtons containsObject:(@"a")]) {
         NSLog(@"A button pressed");
     [self checkLetter:@"a"];
@@ -99,6 +103,9 @@ int lifeCount=0;
         lifeCount++;
         NSString *temp=[NSString stringWithFormat:@"Hangman%i.png", lifeCount];
         [_nooseview setImage:[UIImage imageNamed:temp]];
+        if (lifeCount == 10) {
+        _newgamedisplay.titleLabel.text = @"YOU DIED!!!";
+        }
     }
 }
 

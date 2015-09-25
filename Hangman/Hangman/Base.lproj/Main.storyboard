@@ -30,7 +30,7 @@
                                 <rect key="frame" x="185" y="350" width="30" height="30"/>
                                 <state key="normal" title="A"/>
                                 <connections>
-                                    <action selector="aButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DGU-cb-sPr"/>
+                                    <action selector="keyboardPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="90k-AW-trC"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Byc-Lg-xm7">
@@ -84,6 +84,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ky-LS-UX6">
                                 <rect key="frame" x="235" y="350" width="30" height="30"/>
                                 <state key="normal" title="B"/>
+                                <connections>
+                                    <action selector="keyboardPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gia-FP-wPi"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNo-Lc-a21">
                                 <rect key="frame" x="335" y="450" width="30" height="30"/>
@@ -201,6 +204,7 @@
                     </view>
                     <connections>
                         <outlet property="firstView" destination="Byc-Lg-xm7" id="49j-mi-hvX"/>
+                        <outlet property="newgamedisplay" destination="dzJ-Rc-RbG" id="rTN-Zs-ou1"/>
                         <outlet property="nooseview" destination="LYt-XA-qRQ" id="sXa-p7-57M"/>
                     </connections>
                 </viewController>
