@@ -16,7 +16,7 @@
 @property (nonatomic,weak) IBOutlet UIView *firstView;
 @property (nonatomic, strong)NSMutableArray *letterList;
 @property (nonatomic, weak) IBOutlet UIImageView *nooseview;
-@property (nonatomic, weak) IBOutlet UIButton *newgamedisplay;
+@property (nonatomic, strong) IBOutlet UIButton *newgamedisplay;
 
 
 @end
@@ -42,6 +42,7 @@ int lifeCount=0;
 
 - (IBAction)startNewGamePressed:(id)sender {
     lifeCount=0;
+    _newgamedisplay.titleLabel.text = @"GUESS LETTERS!";
     _guessWord=[self randomWord:(_wordList)];
      _letterList= [[NSMutableArray alloc] init];
         for (int i=0;i<_guessWord.length;i++) {
@@ -61,7 +62,7 @@ int lifeCount=0;
         [hashMark setBackgroundColor:[UIColor grayColor]];
         [_firstView addSubview:hashMark];
         UILabel *letterLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0+(20*i), 0.0, 10, 21)];
-        letterLabel.textColor = [UIColor blackColor];
+        letterLabel.textColor = [UIColor whiteColor];
         letterLabel.font = [UIFont fontWithName:@"Futura" size:16.0];
         letterLabel.tag = i;
         letterLabel.text = _letterList[i];
@@ -75,25 +76,31 @@ int lifeCount=0;
 - (IBAction)keyboardPressed:(UIButton *)button {
     NSString *buttonLetter = [button currentTitle];
     NSLog(@"%@ Letter Pressed", buttonLetter );
+    NSString *buttontemp =[NSString stringWithFormat:@"%@", buttonLetter];
     if (![_excludedButtons containsObject:(@"a")]) {
-        NSLog(@"A button pressed");
-    [self checkLetter:@"a"];
+        NSLog(@"%@", buttontemp);
+        [self checkLetter:buttonLetter];
     }
     
 }
 
+        
+
 -(void)checkLetter:(NSString *) letter {
-    [_excludedButtons addObject:(letter)];
+    [_excludedButtons addObject:letter];
     NSLog(@"the letter is: %@ and the word is: %@",letter,_guessWord);
-    if ([_guessWord containsString:(letter)]) {
+    if ([[_guessWord uppercaseString] containsString:letter]) {
         NSLog(@"i found an A");
         //display letter
-        for (int i=0; i<sizeof _letterList-1;i++) {
-            if( [_letterList[i] caseInsensitiveCompare:letter] == NSOrderedSame ) {
-                
-                for (UILabel *currentLabel in [_firstView subviews]) {
-                    if (currentLabel.tag == i) {
-                        currentLabel.textColor = [UIColor redColor];
+        for (int i=0; i < _letterList.count; i++) {
+            if( [[_letterList[i] uppercaseString] isEqualToString:letter] ) {
+                NSLog(@"the letter is: %@ and the word is: %@",letter,_guessWord);
+                for (id object in [_firstView subviews]) {
+                    if ([object isKindOfClass: [UILabel class]]) {
+                        UILabel *currentLabel = (UILabel *)object;
+                        if (currentLabel.tag == i) {
+                            currentLabel.textColor = [UIColor blackColor];
+                        }
                     }
                 }
             }
@@ -104,7 +111,7 @@ int lifeCount=0;
         NSString *temp=[NSString stringWithFormat:@"Hangman%i.png", lifeCount];
         [_nooseview setImage:[UIImage imageNamed:temp]];
         if (lifeCount == 10) {
-        _newgamedisplay.titleLabel.text = @"YOU DIED!!!";
+        _newgamedisplay.titleLabel.text = @"YOU DIED. PRESS TO PLAY AGAIN";
         }
     }
 }
