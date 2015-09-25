@@ -15,11 +15,14 @@
 @property (nonatomic, strong)NSMutableArray *excludedButtons;
 @property (nonatomic,weak) IBOutlet UIView *firstView;
 @property (nonatomic, strong)NSMutableArray *letterList;
+@property (nonatomic, weak) IBOutlet UIImageView *nooseview;
 
 
 @end
 
 @implementation ViewController
+
+
 
 int lifeCount=0;
 
@@ -81,7 +84,7 @@ int lifeCount=0;
     if ([_guessWord containsString:(letter)]) {
         NSLog(@"i found an A");
         //display letter
-        for (int i=0; i<sizeof _letterList;i++) {
+        for (int i=0; i<sizeof _letterList-1;i++) {
             if( [_letterList[i] caseInsensitiveCompare:letter] == NSOrderedSame ) {
                 
                 for (UILabel *currentLabel in [_firstView subviews]) {
@@ -93,7 +96,9 @@ int lifeCount=0;
         }
         
     } else {
-        //add to death counter
+        lifeCount++;
+        NSString *temp=[NSString stringWithFormat:@"Hangman%i.png", lifeCount];
+        [_nooseview setImage:[UIImage imageNamed:temp]];
     }
 }
 
