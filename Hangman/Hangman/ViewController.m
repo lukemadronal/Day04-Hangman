@@ -21,6 +21,11 @@
 
 
 
+
+
+
+
+
 @end
 
 @implementation ViewController
@@ -30,6 +35,15 @@
 int lifeCount=0;
 bool freshgame;
 int winCount=0;
+
+
+//- (void)noosetest {
+//    NSString *temp=[NSString stringWithFormat:@"Hangman%i.png", lifeCount];
+//    [_nooseview setImage:[UIImage imageNamed:temp]];
+//}
+
+
+
 
 - (NSString *)readBundleFileToString:(NSString *)filename ofType: (NSString *)type {
     NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:type];
@@ -45,9 +59,7 @@ int winCount=0;
 }
 
 - (void)test{
-    //    for (UIButton *button in [_buttonView subviews]) {
-    //        button.userInteractionEnabled=true;
-    //    }
+    
     lifeCount=0;
     _guessWord=[self randomWord:(_wordList)];
     _letterList= [[NSMutableArray alloc] init];
@@ -81,7 +93,10 @@ int winCount=0;
 
 
 - (IBAction)startNewGamePressed:(id)sender {
-    
+    for (UIButton *button in [_buttonView subviews]) {
+        button.userInteractionEnabled=true;
+    }
+    _nooseview.image=nil;
     freshgame=true;
     lifeCount=0;
     _guessWord=[self randomWord:(_wordList)];
@@ -118,7 +133,8 @@ int winCount=0;
 - (IBAction)keyboardPressed:(UIButton *)button {
     
     if(freshgame){
-        [button setEnabled:NO];
+        [button setUserInteractionEnabled:false];
+        button. backgroundColor= [UIColor grayColor];
         NSString *buttonLetter = [button currentTitle];
         NSLog(@"%@ Letter Pressed", buttonLetter );
         NSString *buttontemp =[NSString stringWithFormat:@"%@", buttonLetter];
@@ -166,7 +182,7 @@ int winCount=0;
         } else {
             NSLog(@"ITS NOT WORKINGGGGG");
             lifeCount++;
-            NSString *temp=[NSString stringWithFormat:@"Hangman%i.png", lifeCount];
+           NSString *temp=[NSString stringWithFormat:@"Hangman%i.png", lifeCount];
             [_nooseview setImage:[UIImage imageNamed:temp]];
             if (lifeCount == 10) {UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Oh No!" message:@"You LOSE" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Start New Game" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -196,6 +212,9 @@ int winCount=0;
     //[self readBundleFileToString:temp WordSetApple ofType :temp];
     // Do any additional setup after loading the view, typically from a nib.
 }
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
