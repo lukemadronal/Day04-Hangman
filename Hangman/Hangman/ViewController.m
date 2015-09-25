@@ -70,7 +70,7 @@ int lifeCount=0;
 - (IBAction)aButtonPressed:(id)sender {
     if (![_excludedButtons containsObject:(@"a")]) {
         NSLog(@"A button pressed");
-    checkLetter:@"a";
+    [self checkLetter:@"a"];
     }
     
 }
