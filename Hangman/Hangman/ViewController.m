@@ -97,6 +97,7 @@ int winCount=0;
     
     _nooseview.image=nil;
     freshgame=true;
+    newGame=true;
     lifeCount=0;
     _guessWord=[self randomWord:(_wordList)];
     _letterList= [[NSMutableArray alloc] init];
@@ -114,10 +115,10 @@ int winCount=0;
     }
     
     for (int i=0;i<_guessWord.length;i++) {
-        UIView *hashMark = [[UIView alloc] initWithFrame:CGRectMake(10.0+(20*i), 23.0, 10, 2)];
+        UIView *hashMark = [[UIView alloc] initWithFrame:CGRectMake(10.0+(23*i), 23.0, 13, 2)];
         [hashMark setBackgroundColor:[UIColor grayColor]];
         [_firstView addSubview:hashMark];
-        UILabel *letterLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0+(20*i), 0.0, 10, 21)];
+        UILabel *letterLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0+(23*i), 0.0, 13, 21)];
         letterLabel.textColor = [UIColor whiteColor];
         letterLabel.font = [UIFont fontWithName:@"Futura" size:16.0];
         letterLabel.tag = i;
