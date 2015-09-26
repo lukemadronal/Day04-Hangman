@@ -276,7 +276,7 @@
                     </view>
                     <connections>
                         <outlet property="firstView" destination="Byc-Lg-xm7" id="49j-mi-hvX"/>
-                        <outlet property="newgamedisplay" destination="dzJ-Rc-RbG" id="rTN-Zs-ou1"/>
+                        <outlet property="newgamedisplay" destination="dzJ-Rc-RbG" id="LVh-qE-b0T"/>
                         <outlet property="nooseview" destination="LYt-XA-qRQ" id="sXa-p7-57M"/>
                     </connections>
                 </viewController>

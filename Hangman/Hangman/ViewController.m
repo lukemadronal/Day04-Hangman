@@ -34,6 +34,7 @@
 
 int lifeCount=0;
 bool freshgame;
+bool newGame;
 int winCount=0;
 
 
@@ -58,7 +59,7 @@ int winCount=0;
     return [cleanString componentsSeparatedByCharactersInSet:set];
 }
 
-- (void)test{
+- (void)test {
     
     lifeCount=0;
     _guessWord=[self randomWord:(_wordList)];
@@ -93,9 +94,7 @@ int winCount=0;
 
 
 - (IBAction)startNewGamePressed:(id)sender {
-    for (UIButton *button in [_buttonView subviews]) {
-        button.userInteractionEnabled=true;
-    }
+    
     _nooseview.image=nil;
     freshgame=true;
     lifeCount=0;
@@ -124,15 +123,18 @@ int winCount=0;
         letterLabel.tag = i;
         letterLabel.text = _letterList[i];
         [_firstView addSubview:letterLabel];
-        
-        
+    }
+    for (UIView* subV in self.view.subviews) {
+        if ([subV isKindOfClass:[UIButton class]])
+            subV.userInteractionEnabled=true;
+        subV.backgroundColor=[UIColor whiteColor];
     }
     
 }
 
 - (IBAction)keyboardPressed:(UIButton *)button {
     
-    if(freshgame){
+    if(freshgame && newGame){
         [button setUserInteractionEnabled:false];
         button. backgroundColor= [UIColor grayColor];
         NSString *buttonLetter = [button currentTitle];
@@ -141,6 +143,8 @@ int winCount=0;
         if (![_excludedButtons containsObject:(@"a")]) {
             NSLog(@"%@", buttontemp);
             [self checkLetter:buttonLetter];
+        } else {
+            button.userInteractionEnabled=true;
         }
     }
 }
@@ -161,10 +165,10 @@ int winCount=0;
                             UILabel *currentLabel = (UILabel *)object;
                             if (currentLabel.tag == i) {
                                 currentLabel.textColor = [UIColor blackColor];
-                                
                             }
-                            
-                            if (winCount==_guessWord.length) {UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"YES" message:@"You WIN" preferredStyle:UIAlertControllerStyleAlert];
+                            if (winCount==_guessWord.length) {
+                                newGame=false;
+                                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"YES" message:@"You WIN" preferredStyle:UIAlertControllerStyleAlert];
                                 UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Start New Game" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                     [self test];
                                 }];
@@ -172,8 +176,6 @@ int winCount=0;
                                 [self presentViewController:alert animated:YES completion:nil];
                                 
                             }
-                            
-                            
                         }
                     }
                 }
@@ -182,15 +184,16 @@ int winCount=0;
         } else {
             NSLog(@"ITS NOT WORKINGGGGG");
             lifeCount++;
-           NSString *temp=[NSString stringWithFormat:@"Hangman%i.png", lifeCount];
+            NSString *temp=[NSString stringWithFormat:@"Hangman%i.png", lifeCount];
             [_nooseview setImage:[UIImage imageNamed:temp]];
-            if (lifeCount == 10) {UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Oh No!" message:@"You LOSE" preferredStyle:UIAlertControllerStyleAlert];
+            if (lifeCount == 10) {
+                newGame=false;
+                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Oh No!" message:@"You LOSE" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Start New Game" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                     [self test];
                 }];
                 [alert addAction:defaultAction];
                 [self presentViewController:alert animated:YES completion:nil];
-                
             }
         }
     }
@@ -206,6 +209,7 @@ int winCount=0;
     [super viewDidLoad];
     NSLog(@"view did load");
     freshgame=false;
+    newGame=true;
     _wordList=[self convertCSVStringToArray: [self readBundleFileToString:@"WordSetApple" ofType: @"csv"]];
     
     
